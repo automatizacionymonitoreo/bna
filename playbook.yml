@@ -5,11 +5,11 @@
   tasks:
     - name: httpd installed
       ansible.builtin.yum:
-        name: httpd
+        name: *
         state: latest
 
-    - name: httpd service enabled
-      ansible.builtin.service:
-        name: httpd
-        enabled: true
-        state: started
+#    - name: httpd service enabled
+#      ansible.builtin.service:
+#        name: httpd
+#        enabled: true
+#        state: started
