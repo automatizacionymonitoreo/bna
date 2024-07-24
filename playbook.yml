@@ -1,6 +1,6 @@
 ---
 - name: setup apache
-  hosts: web
+  hosts: {{ nodo }}
   become: true
   tasks:
     - name: httpd installed
