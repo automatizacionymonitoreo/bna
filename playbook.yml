@@ -1,9 +1,9 @@
 ---
-- name: setup apache
+- name: actualizacion 
   hosts: "{{ nodo }}"
   become: true
   tasks:
-    - name: httpd installed
+    - name: actualizacion OS
       ansible.builtin.yum:
         name: '*'
         state: latest
