@@ -1,0 +1,10 @@
+---
+- name: iniciar apache
+  hosts: ec2-54-87-169-168.compute-1.amazonaws.com
+  become: true
+  tasks:
+    - name: httpd service started
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
