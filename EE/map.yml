@@ -11,8 +11,5 @@
         net use Z: "{{ host }}" /user:"{{ user01 }}" "{{ pass01 }}" /persistent:yes
 
     - name: Copy a single file where the source is on the remote host
-      ansible.windows.win_copy:
-        src: c:\Temp\config.txt
-        dest: z:\config.txt
-      
-        
+       win_shell: |
+          copy c:\temp\config.txt z:\        
