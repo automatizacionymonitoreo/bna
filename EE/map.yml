@@ -7,5 +7,5 @@
     host: "{{ winhost }}"
   tasks:
     - name: Map network drive
-      win_command: |
+      win_shell: |
         net use Z: "{{ host }}" /user:"{{ user01 }}" "{{ pass01 }}" /persistent:yes
