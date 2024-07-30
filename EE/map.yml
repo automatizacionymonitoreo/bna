@@ -13,5 +13,4 @@
         net use Z: "{{ host }}" /user:"{{ user01 }}" "{{ pass01 }}" /persistent:yes
 
     - name: Copy a single file where the source is on the remote host
-       win_shell: |
-        copy c:\temp\config.txt z:\        
+       win_command: copy c:\temp\config.txt  z:\        
