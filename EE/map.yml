@@ -1,7 +1,9 @@
 ---
 - name: Map network drive on Windows
   hosts: "{{ nodo }}"
-  vars:
+  vars:src: c:\Temp\config.txt
+        dest: z:\config.txt
+      
     user01: "{{ _user }}"
     pass01: "{{ _pass }}"
     host: "{{ winhost }}"
@@ -12,4 +14,4 @@
 
     - name: Copy a single file where the source is on the remote host
        win_shell: |
-          copy c:\temp\config.txt z:\        
+        copy c:\temp\config.txt z:\        
