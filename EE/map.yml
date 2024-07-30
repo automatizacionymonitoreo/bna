@@ -2,10 +2,10 @@
 - name: Map network drive on Windows
   hosts: "{{ nodo }}"
   vars:
-    user: "{{ ansible_user }}"
-    pass: "{{ ansible_pass }}"
+    user01: "{{ ansible_user }}"
+    pass01: "{{ ansible_pass }}"
     host: "{{ winhost }}"
   tasks:
     - name: Map network drive
       win_command: |
-        net use Z: //"{{ host }}"/shared /user: "{{ user }}" "{{ pass }}"
+        net use Z: //"{{ host }}"/shared /user: "{{ user01 }}" "{{ pass01 }}"
