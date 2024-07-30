@@ -5,7 +5,7 @@
   - name: Create a file or modify time stamp if already present
     ansible.windows.win_file:
       path: C:\test.conf
-      state: touch- 
+      state: touch
   - name: Check the information on the file if the file exists
     ansible.windows.win_stat:
       path: C:\test.conf
