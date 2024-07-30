@@ -2,8 +2,8 @@
 - name: prueba escritura archivo 
   hosts: "{{ nodo }}"
   vars:
-    AAP_username: "{{ user }}"
-    AAP_password: "{{ password }}"
+    user: "{{ AAP_username }}"
+    password: "{{ AAP_password }}"
   tasks:
   - name: Create a file or modify time stamp if already present
     ansible.windows.win_file:
