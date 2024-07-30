@@ -1,0 +1,5 @@
+---
+collections:
+  - ansible.windows
+  - microsoft.ad
+  - community.general
