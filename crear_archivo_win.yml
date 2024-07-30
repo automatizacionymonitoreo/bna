@@ -1,0 +1,17 @@
+---
+- name: prueba escritura archivo 
+  hosts: "{{ nodo }}"
+  become: true
+  tasks:
+  - name: Create a file or modify time stamp if already present
+    ansible.windows.win_file:
+      path: C:\Temp\test.conf
+      state: touch- 
+  - name: Check the information on the file if the file exists
+    ansible.windows.win_stat:
+      path: C:\Temp\test.conf
+    register: testfile
+
+  - name: Print results of win_stat
+    ansible.builtin.debug:
+      var: testfile
