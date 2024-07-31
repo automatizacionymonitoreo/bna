@@ -2,6 +2,7 @@
 - name: Map network drive on Windows
   hosts: "{{ nodo }}"
   gather_facts: no
+  become: yes
   vars:      
     user01: "{{ _user }}"
     pass01: "{{ _pass }}"
@@ -25,6 +26,6 @@
       rescue:
         - name: Cleanup credentials if mapping fails
           community.windows.win_credential:
-            name: "{{ host }}"
+            name: "WIN-8HT3HSM6UE5"
             type: domain_password
             state: absent
