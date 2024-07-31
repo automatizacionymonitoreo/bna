@@ -7,9 +7,23 @@
     pass01: "{{ _pass }}"
     host: "{{ winhost }}"
   tasks:
-    - name: Map network drive
-      win_command: |
-        net use Z: {{ host }} /user:{{ user01 }} {{ pass01 }} /persistent:yes
+#    - name: Map network drive
+#      win_command: |
+#        net use Z: {{ host }} /user:{{ user01 }} {{ pass01 }} /persistent:yes
+    - name: Create mapped drive with credentials and save the username and password
+      block:
+      - name: Save the network credentials required for the mapped drive
+        community.windows.win_credential:
+          name: server
+          type: domain_password
+          username: {{ user01 }}
+          secret: {{ pass01 }}
+          state: present
+      - name: Create a mapped drive that requires authentication
+        community.windows.win_mapped_drive:
+          letter: Z
+          path: {{ host }}
+          state: present
 
 #    - name: Copy a single file where the source is on the remote host
 #      win_command: |
