@@ -1,0 +1,30 @@
+---
+- name: Map network drive on Windows
+  hosts: "{{ nodo }}"
+  gather_facts: no
+  vars:      
+    user01: "{{ _user }}"
+    pass01: "{{ _pass }}"
+    host: "{{ winhost }}"
+  tasks:
+    - name: Create mapped drive with credentials and save the username and password
+      block:
+        - name: Save the network credentials required for the mapped drive
+          community.windows.win_credential:
+            name: "{{ host }}"
+            type: domain_password
+            username: "{{ user01 }}"
+            secret: "{{ pass01 }}"
+            state: present
+
+        - name: Create a mapped drive that requires authentication
+          community.windows.win_mapped_drive:
+            letter: Z
+            path: "\\{{ host }}\shared"
+            state: present
+      rescue:
+        - name: Cleanup credentials if mapping fails
+          community.windows.win_credential:
+            name: "{{ host }}"
+            type: domain_password
+            state: absent
