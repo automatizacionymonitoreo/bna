@@ -1,9 +1,7 @@
 ---
 - name: Map network drive on Windows
   hosts: "{{ nodo }}"
-  vars:src: c:\Temp\config.txt
-        dest: z:\config.txt
-      
+  vars:      
     user01: "{{ _user }}"
     pass01: "{{ _pass }}"
     host: "{{ winhost }}"
