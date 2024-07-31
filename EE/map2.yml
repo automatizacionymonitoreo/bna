@@ -2,7 +2,6 @@
 - name: Map network drive on Windows
   hosts: "{{ nodo }}"
   gather_facts: no
-  become: yes
   vars:      
     user01: "{{ _user }}"
     pass01: "{{ _pass }}"
