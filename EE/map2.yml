@@ -12,8 +12,8 @@
           community.windows.win_credential:
             name: "WIN-8HT3HSM6UE5"
             type: domain_password
-            username: "{{ user01 }}"
-            secret: "{{ pass01 }}"
+            username: {{ user01 }}
+            secret: {{ pass01 }}
             state: present
 
         - name: Create a mapped drive that requires authentication
@@ -21,9 +21,9 @@
             letter: Z
             path: \\WIN-8HT3HSM6UE5\shared
             state: present
-      rescue:
-        - name: Cleanup credentials if mapping fails
-          community.windows.win_credential:
-            name: "WIN-8HT3HSM6UE5"
-            type: domain_password
-            state: absent
+#      rescue:
+#        - name: Cleanup credentials if mapping fails
+#          community.windows.win_credential:
+#            name: "WIN-8HT3HSM6UE5"
+#            type: domain_password
+#            state: absent
