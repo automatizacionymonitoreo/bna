@@ -6,7 +6,6 @@
   vars:      
     user01: "{{ _user }}"
     pass01: "{{ _pass }}"
-    host: "{{ winhost }}"
   tasks:
     - name: Create mapped drive with credentials and save the username and password
       block:
