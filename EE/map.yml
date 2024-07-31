@@ -24,6 +24,7 @@
           letter: Z
           path: "{{ host }}"
           state: present
+          become: yes
 
 #    - name: Copy a single file where the source is on the remote host
 #      win_command: |
