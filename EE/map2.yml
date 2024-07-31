@@ -11,7 +11,7 @@
       block:
         - name: Save the network credentials required for the mapped drive
           community.windows.win_credential:
-            name: "{{ host }}"
+            name: "WIN-8HT3HSM6UE5"
             type: domain_password
             username: "{{ user01 }}"
             secret: "{{ pass01 }}"
@@ -20,7 +20,7 @@
         - name: Create a mapped drive that requires authentication
           community.windows.win_mapped_drive:
             letter: Z
-            path: "\\{{ host }}\shared"
+            path: \\WIN-8HT3HSM6UE5\shared
             state: present
       rescue:
         - name: Cleanup credentials if mapping fails
