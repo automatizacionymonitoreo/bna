@@ -16,13 +16,13 @@
         community.windows.win_credential:
           name: server
           type: domain_password
-          username: {{ user01 }}
-          secret: {{ pass01 }}
+          username: "{{ user01 }}"
+          secret: "{{ pass01 }}"
           state: present
       - name: Create a mapped drive that requires authentication
         community.windows.win_mapped_drive:
           letter: Z
-          path: {{ host }}
+          path: "{{ host }}"
           state: present
 
 #    - name: Copy a single file where the source is on the remote host
