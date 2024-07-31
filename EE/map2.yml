@@ -12,7 +12,7 @@
           community.windows.win_credential:
             name: "WIN-8HT3HSM6UE5"
             type: domain_password
-            username: {{ user01 }}
+            username: "{{ user01 }}"
             secret: {{ pass01 }}
             state: present
 
