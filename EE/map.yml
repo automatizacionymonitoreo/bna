@@ -9,7 +9,7 @@
   tasks:
     - name: Map network drive
       win_command: |
-        net use Z: "{{ host }}" /user:"{{ user01 }}" "{{ pass01 }}" /persistent:yes
+        net use Z: {{ host }} /user:{{ user01 }} {{ pass01 }} /persistent:yes
 
 #    - name: Copy a single file where the source is on the remote host
 #      win_command: |
