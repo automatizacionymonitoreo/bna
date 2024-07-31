@@ -7,9 +7,6 @@
     pass01: "{{ _pass }}"
     host: "{{ winhost }}"
   tasks:
-#    - name: Map network drive
-#      win_command: |
-#        net use Z: {{ host }} /user:{{ user01 }} {{ pass01 }} /persistent:yes
     - name: Create mapped drive with credentials and save the username and password
       block:
       - name: Save the network credentials required for the mapped drive
@@ -24,7 +21,6 @@
           letter: Z
           path: "{{ host }}"
           state: present
-          become: yes
 
 #    - name: Copy a single file where the source is on the remote host
 #      win_command: |
