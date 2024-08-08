@@ -1,0 +1,52 @@
+---
+- name: conversion de ps1 a ansible prueba1
+  hosts: "{{ host_windows }}"
+  gather_facts: no
+
+tasks:
+    - name: Crear directorios temporales
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ TempDir }}"
+        - "{{ outputDirectory }}"
+        - "{{ outputDirectory }}/SQLScripts"
+        - "{{ outputDirectory }}/PSScripts"
+        - "{{ outputDirectory }}/ConfigChanges"
+        - "{{ outputDirectory }}/Logs"
+
+    - name: Ejecutar TF.exe para obtener el changeset
+      command: "{{ tfsInstallDirectory }}/TF.exe changeset /collection:{{ application.codeRepository.collection }} {{ deployment.changeSet }} /noprompt"
+      register: tf_output
+
+    - name: Verificar salida de TF.exe
+      debug:
+        var: tf_output.stdout_lines
+    - name: Mover archivos SQL
+      find:
+        paths: "{{ TempDir }}"
+        patterns: "*.sql"
+      register: sql_files
+
+    - name: Crear directorio SQLScripts si hay archivos SQL
+      file:
+        path: "{{ outputDirectory }}/SQLScripts"
+        state: directory
+      when: sql_files.matched > 0
+
+    - name: Mover archivos SQL a SQLScripts
+      copy:
+        src: "{{ item.path }}"
+        dest: "{{ outputDirectory }}/SQLScripts/"
+        force: yes
+      loop: "{{ sql_files.files }}"
+      when: sql_files.matched > 0
+
+    - name: Registrar la cantidad de archivos SQL transferidos
+      debug:
+        msg: "{{ sql_files.matched }} archivos SQL descargados y transferidos."
+
+    - name: Log de status final
+      debug:
+        msg: "Files downloaded and transferred."
