@@ -1,0 +1,10 @@
+---
+- name: ejecucion del ps1
+  hosts: "{{ nodos }}"
+  gather_facts: no
+
+  tasks:
+    - name: ejecucion directa del ps1 en el servidor
+      win_shell: |
+        c:\"{{ ruta_y_ps1 }}" -changeSet:"{{ var_change_set }}" -numeroDeDespliegue:"{{ var_numero_despliegue}}" -tfsInstallDirectory:"{{ var_ruta }}"
+        
