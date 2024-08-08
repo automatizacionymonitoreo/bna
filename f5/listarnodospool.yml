@@ -1,0 +1,17 @@
+---
+- name: Obtener información de los nodos de un pool en F5
+  hosts: f5
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: Listar nodos de un pool
+      bigip_pool_member:
+        pool: "/Common/mi_pool"
+        provider:
+          validate_certs: no
+        state: present
+      register: pool_members
+
+    - name: Mostrar información de los nodos del pool
+      debug:
+        msg: "{{ pool_members.members }}"
