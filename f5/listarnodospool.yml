@@ -7,6 +7,7 @@
     - name: Listar nodos de un pool
       bigip_pool_member:
         pool: "/Common/mi_pool"
+        server: "{{ f5_host }}"
         provider:
           validate_certs: no
         state: present
