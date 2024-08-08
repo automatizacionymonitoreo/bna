@@ -6,10 +6,11 @@
   tasks:
     - name: Listar nodos de un pool
       bigip_pool_member:
-        pool: "/Common/mi_pool"
-        server: "{{ f5_host }}"
-        provider:
-          validate_certs: no
+        f5_hostname: "{{ bigip_host}}"
+        f5_username: "{{ bigip_username }}"
+        f5_password: "{{ _f5_password_ }}"
+        f5_port: "{{ pool_name }}"
+        name: "{{ pool_name }}"
         state: present
       register: pool_members
 
