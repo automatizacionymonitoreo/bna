@@ -1,0 +1,35 @@
+---
+- name: Lista y descarga archivos de TFS de un Changeset
+  hosts: win_server
+  vars:
+    tfs_collection: "http://smf12ac0001:8080/tfs/BNA"
+    #tfs_changeset: 86396
+    tfs_changeset: "{{ var_changeset }}"
+    tf_exe_path: "D:\\Team Explorer"
+    ansible_become: yes
+    ansible_become_method: runas
+    ansible_become_user: "cc\\s68255"
+
+  tasks:
+    - name: Listar Archivos Changeset
+      #win_shell: '"{{ tf_exe }}" changeset "{{ tfs_changeset }}" /collection:"{{ tfs_collection }}" /noprompt'
+      win_command: 'tf changeset "{{ tfs_changeset }}" /collection:"{{ tfs_collection }}" /noprompt'
+      args:
+        chdir: "{{ tf_exe_path }}"
+      register: changeset_output
+
+    - name: Mostrar Output
+      ansible.builtin.debug:
+        var: changeset_output.stdout_lines
+
+    - name: Filtrar Archivos para descargar del Changeset
+      ansible.builtin.set_fact:
+        files_to_download: "{{ changeset_output.stdout_lines | select('match', '^\\s*(edit|add)\\s+\\$/') | map('regex_replace', '^\\s*(edit|add|delete|rename)\\s+', '') | list }}"
+
+    - name: Descargar Archivos Changeset
+      win_command: 'tf GET "{{ item }}" /version:"{{ tfs_changeset }}" /force'
+      args:
+        chdir: "{{ tf_exe_path }}"
+      loop: "{{ files_to_download }}"
+      register: archivos_descargados
+
